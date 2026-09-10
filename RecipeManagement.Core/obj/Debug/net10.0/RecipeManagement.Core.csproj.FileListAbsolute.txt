@@ -1,0 +1,11 @@
+/Users/yongsenkuang/Desktop/RecipeManager/RecipeManagement.Core/bin/Debug/net10.0/RecipeManagement.Core.deps.json
+/Users/yongsenkuang/Desktop/RecipeManager/RecipeManagement.Core/bin/Debug/net10.0/RecipeManagement.Core.dll
+/Users/yongsenkuang/Desktop/RecipeManager/RecipeManagement.Core/bin/Debug/net10.0/RecipeManagement.Core.pdb
+/Users/yongsenkuang/Desktop/RecipeManager/RecipeManagement.Core/obj/Debug/net10.0/RecipeManagement.Core.GeneratedMSBuildEditorConfig.editorconfig
+/Users/yongsenkuang/Desktop/RecipeManager/RecipeManagement.Core/obj/Debug/net10.0/RecipeManagement.Core.AssemblyInfoInputs.cache
+/Users/yongsenkuang/Desktop/RecipeManager/RecipeManagement.Core/obj/Debug/net10.0/RecipeManagement.Core.AssemblyInfo.cs
+/Users/yongsenkuang/Desktop/RecipeManager/RecipeManagement.Core/obj/Debug/net10.0/RecipeManagement.Core.csproj.CoreCompileInputs.cache
+/Users/yongsenkuang/Desktop/RecipeManager/RecipeManagement.Core/obj/Debug/net10.0/RecipeManagement.Core.dll
+/Users/yongsenkuang/Desktop/RecipeManager/RecipeManagement.Core/obj/Debug/net10.0/refint/RecipeManagement.Core.dll
+/Users/yongsenkuang/Desktop/RecipeManager/RecipeManagement.Core/obj/Debug/net10.0/RecipeManagement.Core.pdb
+/Users/yongsenkuang/Desktop/RecipeManager/RecipeManagement.Core/obj/Debug/net10.0/ref/RecipeManagement.Core.dll
