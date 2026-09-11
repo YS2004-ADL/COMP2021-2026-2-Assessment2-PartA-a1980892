@@ -10,12 +10,33 @@ namespace RecipeManagement.Core;
 /// </summary>
 public sealed class RecipeManager : IRecipeManager
 {
-    // TODO Part A: add your private collection fields here.
+    private readonly Dictionary<int, Recipe> _recipes = new();
 
     public RecipeManager(IEnumerable<Recipe> recipes)
     {
-        // TODO Part A: validate recipes and build Dictionary<int, Recipe>.
-        _ = recipes;
+        if (recipes == null)
+        {
+            throw new ArgumentNullException(nameof(recipes));
+        }
+
+        foreach (var recipe in recipes)
+        {
+            if (recipe.Id <= 0)
+            {
+                throw new ArgumentException("Recipe ID must be positive");
+            }
+
+            if (string.IsNullOrWhiteSpace(recipe.Title))
+            {
+                throw new ArgumentException("Title cannot be blank");
+            }
+            if (_recipes.ContainsKey(recipe.Id))
+            {
+                throw new ArgumentException("This recipe Id already exist");
+            }
+
+            _recipes.Add(recipe.Id, recipe);
+        }
     }
 
     public int RecipeCount => 0;
