@@ -215,11 +215,25 @@ public sealed class RecipeManager : IRecipeManager
         return true;
     }
 
-    public string? PeekNextInstruction() =>
-        throw new NotImplementedException("Part A: implement PeekNextInstruction.");
+    public string? PeekNextInstruction()
+    {
+        if (_instructions.Count == 0)
+        {
+            return null;
+        }
 
-    public string? CompleteNextInstruction() =>
-        throw new NotImplementedException("Part A: implement CompleteNextInstruction.");
+        return _instructions.Peek();
+    }
+
+    public string? CompleteNextInstruction()
+    {
+         if (_instructions.Count == 0)
+        {
+            return null;
+        }
+
+        return _instructions.Dequeue();
+    }
 
 
 
