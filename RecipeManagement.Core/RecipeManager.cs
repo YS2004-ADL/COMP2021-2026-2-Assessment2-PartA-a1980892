@@ -14,6 +14,7 @@ public sealed class RecipeManager : IRecipeManager
     private readonly List<string> _shoppingList = new List<string>();
     private readonly LinkedList<int> _cookingPlan = new LinkedList<int>();
     private readonly Stack<int> _removedRecipes = new Stack<int>();
+    private readonly Queue<string> _instructions = new Queue<string>();
 
     public RecipeManager(IEnumerable<Recipe> recipes)
     {
@@ -45,7 +46,7 @@ public sealed class RecipeManager : IRecipeManager
     public int RecipeCount => _recipes.Count;
     public int ShoppingItemCount => _shoppingList.Count;
     public int CookingPlanCount => _cookingPlan.Count;
-    public int PendingInstructionCount => 0;
+    public int PendingInstructionCount => _instructions.Count;
     public int RemovedRecipeCount => _removedRecipes.Count;
 
     public bool AddRecipe(Recipe recipe)
@@ -155,7 +156,7 @@ public sealed class RecipeManager : IRecipeManager
 
     public bool RestoreLastRemovedRecipe()
     {
-        if(_removedRecipes.Count == 0)
+        if (_removedRecipes.Count == 0)
         {
             return false;
         }
@@ -180,7 +181,7 @@ public sealed class RecipeManager : IRecipeManager
 
     public int? PeekLastRemovedRecipe()
     {
-        if(_removedRecipes.Count == 0)
+        if (_removedRecipes.Count == 0)
         {
             return null;
         }
@@ -193,8 +194,26 @@ public sealed class RecipeManager : IRecipeManager
         return _cookingPlan.ToList();
     }
 
-    public bool StartCooking(int recipeId) =>
-        throw new NotImplementedException("Part A: implement StartCooking.");
+    public bool StartCooking(int recipeId)
+    {
+        if (!_recipes.TryGetValue(recipeId, out var recipe))
+        {
+            return false;
+        }
+
+        if (recipe.Instructions.Count == 0)
+        {
+            return false;
+        }
+
+        _instructions.Clear();
+        foreach (var instruction in recipe.Instructions)
+        {
+            _instructions.Enqueue(instruction);
+        }
+
+        return true;
+    }
 
     public string? PeekNextInstruction() =>
         throw new NotImplementedException("Part A: implement PeekNextInstruction.");
