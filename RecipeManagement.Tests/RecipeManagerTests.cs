@@ -57,4 +57,19 @@ public sealed class RecipeManagerTests
             }
         });
     }
+
+    [Fact]
+    public void AddRecipe_ReturnsFalseForDuplicateId()
+    {
+        var manager = CreateManager();
+        var duplicateRecipe = new Recipe
+        {
+            Id = 10,
+            Title = "Duplicate Recipe"
+        };
+        bool result = manager.AddRecipe(duplicateRecipe);
+
+        Assert.False(result);
+        Assert.Equal(2, manager.RecipeCount);
+    }
 }
