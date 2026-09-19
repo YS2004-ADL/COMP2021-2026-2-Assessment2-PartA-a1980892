@@ -140,4 +140,68 @@ public sealed class RecipeManagerTests
 
         Assert.Equal(0, manager.ShoppingItemCount);
     }
+
+    [Fact]
+    public void CompleteNextInstruction_ReturnsNullWhenQueueIsEmpty()
+    {
+        var manager = CreateManager();
+        var result = manager.CompleteNextInstruction();
+
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public void GetCookingPlan_ReturnsRecipesInAddedOrder()
+    {
+        var manager = CreateManager();
+
+        manager.AddRecipeToCookingPlan(10);
+        manager.AddRecipeToCookingPlan(20);
+
+        var cookingPlan = manager.GetCookingPlan();
+
+        Assert.Equal(10, cookingPlan[0]);
+        Assert.Equal(20, cookingPlan[1]);
+    }
+
+    [Fact]
+    public void RemoveRecipe_RemovesExistingRecipe()
+    {
+        var manager = CreateManager();
+
+        manager.RemoveRecipe(10);
+
+        Assert.Equal(1, manager.RecipeCount);
+
+        var result = manager.FindRecipe(10);
+
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public void AddRecipe_AddsNewRecipe()
+    {
+        var manager = CreateManager();
+        var newRecipe = new Recipe { Id = 30, Title = "Recipe C" };
+
+        manager.AddRecipe(newRecipe);
+
+        Assert.Equal(3, manager.RecipeCount);
+    }
+
+    [Fact]
+    public void AddRecipe_CanFindAddedRecipe()
+    {
+        var manager = CreateManager();
+        var newRecipe = new Recipe
+        {
+            Id = 30,
+            Title = "Recipe C"
+        };
+
+        manager.AddRecipe(newRecipe);
+        var result = manager.FindRecipe(30);
+
+        Assert.Equal("Recipe C", result ?.Title);
+    }
 }
