@@ -72,4 +72,72 @@ public sealed class RecipeManagerTests
         Assert.False(result);
         Assert.Equal(2, manager.RecipeCount);
     }
+
+    [Fact]
+    public void FindRecipe_ReturnsNullForMissingId()
+    {
+        var manager = CreateManager();
+        var result = manager.FindRecipe(999);
+
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public void PeekLastRemovedRecipe_ReturnsNullWhenStackIsEmpty()
+    {
+        var manager = CreateManager();
+        var result = manager.PeekLastRemovedRecipe();
+
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public void PeekNextInstruction_ReturnsNullWhenQueueIsEmpty()
+    {
+        var manager = CreateManager();
+        var result = manager.PeekNextInstruction();
+
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public void AddRecipeToCookingPlan_ReturnsFalseForDuplicateRecipe()
+    {
+        var manager = CreateManager();
+        manager.AddRecipeToCookingPlan(10);
+        var result = manager.AddRecipeToCookingPlan(10);
+
+        Assert.False(result);
+
+        Assert.Equal(1, manager.CookingPlanCount);
+    }
+
+    [Fact]
+    public void AddIngredientsToShoppingList_AddsRecipeIngredients()
+    {
+        var manager = CreateManager();
+        manager.AddIngredientsToShoppingList(10);
+
+        Assert.Equal(1, manager.ShoppingItemCount);
+    }
+
+    [Fact]
+    public void GetShoppingList_ReturnsRecipeIngredients()
+    {
+        var manager = CreateManager();
+        manager.AddIngredientsToShoppingList(10);
+        var shoppingList = manager.GetShoppingList();
+
+        Assert.Equal("1 apple", shoppingList[0]);
+    }
+
+    [Fact]
+    public void ClearShoppingList_RemovesAllItems()
+    {
+        var manager = CreateManager();
+        manager.AddIngredientsToShoppingList(10);
+        manager.ClearShoppingList();
+
+        Assert.Equal(0, manager.ShoppingItemCount);
+    }
 }
