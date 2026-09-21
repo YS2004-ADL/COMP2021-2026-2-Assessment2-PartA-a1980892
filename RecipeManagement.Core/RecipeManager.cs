@@ -161,7 +161,7 @@ public sealed class RecipeManager : IRecipeManager
             return false;
         }
 
-        int recipeId = _removedRecipes.Peek();
+        int recipeId = _removedRecipes.Pop();
 
         if (!_recipes.ContainsKey(recipeId))
         {
@@ -173,7 +173,6 @@ public sealed class RecipeManager : IRecipeManager
             return false;
         }
 
-        _removedRecipes.Pop();
         _cookingPlan.AddLast(recipeId);
 
         return true;
