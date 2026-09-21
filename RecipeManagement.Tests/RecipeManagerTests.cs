@@ -253,5 +253,17 @@ public sealed class RecipeManagerTests
         Assert.Equal(2, manager.PendingInstructionCount);
     }
 
-    
+
+    [Fact]
+    public void RemovedRecipe_CanBeRestoredToCookingPlan()
+    {
+        var manager = CreateManager();
+
+        manager.AddRecipeToCookingPlan(10);
+        manager.RemoveRecipeFromCookingPlan(10);
+        manager.RestoreLastRemovedRecipe();
+
+        Assert.Equal(1, manager.CookingPlanCount);
+        Assert.Equal(0, manager.RemovedRecipeCount);
+    }
 }
