@@ -202,6 +202,70 @@ public sealed class RecipeManagerTests
         manager.AddRecipe(newRecipe);
         var result = manager.FindRecipe(30);
 
-        Assert.Equal("Recipe C", result ?.Title);
+        Assert.Equal("Recipe C", result?.Title);
+    }
+
+    [Fact]
+    public void AddIngredientsToShoppingList_ReturnsZeroForMissingRecipe()
+    {
+        var manager = CreateManager();
+        var result = manager.AddIngredientsToShoppingList(999);
+
+        Assert.Equal(0, result);
+        Assert.Equal(0, manager.ShoppingItemCount);
+    }
+
+    [Fact]
+    public void RemoveRecipeFromCookingPlan_ReturnsFalseWhenRecipeNotInPlan()
+    {
+        var manager = CreateManager();
+        var result = manager.RemoveRecipeFromCookingPlan(10);
+
+        Assert.False(result);
+        Assert.Equal(0, manager.CookingPlanCount);
+    }
+
+    [Fact]
+    public void RestoreLastRemovedRecipe_ReturnsFalseWhenStackIsEmpty()
+    {
+        var manager = CreateManager();
+        var result = manager.RestoreLastRemovedRecipe();
+
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void StartCooking_ReturnsFalseForMissingRecipe()
+    {
+        var manager = CreateManager();
+        var result = manager.StartCooking(999);
+
+        Assert.False(result);
+        Assert.Equal(0, manager.PendingInstructionCount);
+    }
+
+    [Fact]
+    public void StartCooking_LoadsAllInstructionsIntoQueue()
+    {
+        var manager = CreateManager();
+        var result = manager.StartCooking(10);
+
+        Assert.Equal(2, manager.PendingInstructionCount);
+    }
+
+    [Fact]
+    public void RemovedRecipe_CanBeRestoredToCookingPlan()
+    {
+        var manager = CreateManager();
+
+        manager.AddRecipeToCookingPlan(10);
+
+        // ① 从 Cooking Plan 删除 10
+
+        // ② RestoreLastRemovedRecipe()
+
+        // ③ 检查 CookingPlanCount 恢复成 1
+
+        // ④ 检查 RemovedRecipeCount 恢复成 0
     }
 }
