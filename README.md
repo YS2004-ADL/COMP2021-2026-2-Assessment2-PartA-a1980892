@@ -37,4 +37,4 @@ Until you implement `RecipeManager`, menu options print a **Not implemented** me
 
 ## AI acknowledgement
 
-Include the required AI acknowledgement statement in your submission as described in the assignment specification.
+I used ChatGPT to help me understand the assignment requirements and review C# concepts, including Dictionary, List, LinkedList, Stack and Queue, as well as their related methods. I also used ChatGPT to help me understand xUnit testing, troubleshoot errors, review debugging approaches, understand Git/GitHub workflow, and discuss how the required collections interact within the RecipeManager. I reviewed the explanations and suggestions, then developed and tested the implementation myself using my understanding of the course material. I verified my work using automated tests and manual console testing. I did not copy or adapt AI-generated code or other material into my submission. I developed the submitted solution myself based on my understanding of the course material.
