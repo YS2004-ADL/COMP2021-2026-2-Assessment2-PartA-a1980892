@@ -266,4 +266,32 @@ public sealed class RecipeManagerTests
         Assert.Equal(1, manager.CookingPlanCount);
         Assert.Equal(0, manager.RemovedRecipeCount);
     }
+
+    [Fact]
+    public void SearchByTitle_MatchingText_ReturnsMatchingRecipes()
+    {
+        var manager = CreateManager();
+        var result = manager.SearchByTitle("recipe");
+
+        Assert.Equal(2, result.Count);     
+    }
+
+    [Fact]
+    public void SearchByTitle_PartialText_ReturnsMatchingRecipe()
+    {
+        var manager = CreateManager();
+        var result = manager.SearchByTitle("A");
+
+        Assert.Single(result);
+        Assert.Equal(10, result[0].Id);
+    }
+
+    [Fact]
+    public void SearchByTitle_NoMatches_ReturnsEmptyList()
+    {
+        var manager = CreateManager();
+        var result = manager.SearchByTitle("Prawn dumpling");
+
+        Assert.Empty(result);
+    }
 }
