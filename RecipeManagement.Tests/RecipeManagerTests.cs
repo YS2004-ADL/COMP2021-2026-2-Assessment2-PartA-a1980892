@@ -294,4 +294,42 @@ public sealed class RecipeManagerTests
 
         Assert.Empty(result);
     }
+
+    [Fact]
+    public void SearchByIngredient_MatchingText_ReturnsMatchingRecipe()
+    {
+        var manager = CreateManager();
+        var result = manager.SearchByIngredient("Apple");
+
+        Assert.Single(result);
+        Assert.Equal(10, result[0].Id);
+    }
+
+    [Fact]
+    public void SearchByIngredient_MultipleMatchingIngredients_ReturnsRecipeOnce()
+    {
+        var manager = CreateManager();
+        var moreIngredientRecipe = new Recipe
+        {
+            Id = 30,
+            Title = "Recipe c",
+            Ingredients = new() { "1 orange", "2 orange juice" },
+        };
+        manager.AddRecipe(moreIngredientRecipe);
+
+        var result = manager.SearchByIngredient("Orange");
+
+        Assert.Single(result);
+        Assert.Equal(30, result[0].Id);
+        
+    }
+
+    [Fact]
+    public void SearchByIngredient_NoMatches_ReturnsEmptyList()
+    {
+        var manager = CreateManager();
+        var result = manager.SearchByIngredient("Orange");
+
+        Assert.Empty(result);
+    }
 }
