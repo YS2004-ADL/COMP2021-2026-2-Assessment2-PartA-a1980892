@@ -332,4 +332,121 @@ public sealed class RecipeManagerTests
 
         Assert.Empty(result);
     }
+
+    [Fact]
+    public void GetHighestProteinRecipes_ValidCount_ReturnsHighestProteinFirst()
+    {
+        var manager = CreateManager();
+        var recipeC = new Recipe
+        {
+            Id = 30,
+            Title = "Chicken feet",
+            Nutrition = new NutritionInfo
+            {
+                ProteinG = 25
+            }
+        };
+        var recipeD = new Recipe
+        {
+            Id = 40,
+            Title = "Mango pudding",
+            Nutrition = new NutritionInfo
+            {
+                ProteinG = 5
+            }
+        };
+
+        var recipeE = new Recipe
+        {
+            Id = 50,
+            Title = "BBQ Pork",
+            Nutrition = new NutritionInfo
+            {
+                ProteinG = 30
+            }
+        };
+
+        manager.AddRecipe(recipeC);
+        manager.AddRecipe(recipeD);
+        manager.AddRecipe(recipeE);
+
+        var result = manager.GetHighestProteinRecipes(2);
+
+        Assert.Equal(2, result.Count);
+        Assert.Equal(30, result[0].Nutrition?.ProteinG);
+        Assert.Equal(30, result[1].Id);
+    }
+    [Fact]
+    public void GetHighestProteinRecipes_ZeroCount_ReturnsEmptyList()
+    {
+        var manager = CreateManager();
+        var recipeC = new Recipe
+        {
+            Id = 30,
+            Title = "Chicken feet",
+            Nutrition = new NutritionInfo
+            {
+                ProteinG = 25
+            }
+        };
+
+        manager.AddRecipe(recipeC);
+
+        var result = manager.GetHighestProteinRecipes(0);
+
+        Assert.Empty(result);
+    }
+
+    [Fact]
+    public void GetHighestProteinRecipes_NegativeCount_ReturnsEmptyList()
+    {
+        var manager = CreateManager();
+        var recipeC = new Recipe
+        {
+            Id = 30,
+            Title = "Chicken feet",
+            Nutrition = new NutritionInfo
+            {
+                ProteinG = 25
+            }
+        };
+
+        manager.AddRecipe(recipeC);
+
+        var result = manager.GetHighestProteinRecipes(-1);
+
+        Assert.Empty(result);
+    }
+
+    [Fact]
+    public void GetHighestProteinRecipes_MissingProtein_ExcludesRecipesWithoutProtein()
+    {
+        var manager = CreateManager();
+        var recipeC = new Recipe
+        {
+            Id = 30,
+            Title = "Chicken feet",
+            Nutrition = new NutritionInfo{}
+        };
+
+        var recipeD = new Recipe
+        {
+            Id = 40,
+            Title = "Mango pudding",
+            Nutrition = new NutritionInfo
+            {
+                ProteinG = 5
+            }
+        };
+
+
+        manager.AddRecipe(recipeC);
+        manager.AddRecipe(recipeD);
+
+        var result = manager.GetHighestProteinRecipes(4);
+
+        Assert.Single(result);
+        Assert.Equal(5, result[0].Nutrition?.ProteinG);
+        Assert.Equal(40, result[0].Id);
+    }
 }
