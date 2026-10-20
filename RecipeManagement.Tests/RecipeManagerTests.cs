@@ -449,4 +449,100 @@ public sealed class RecipeManagerTests
         Assert.Equal(5, result[0].Nutrition?.ProteinG);
         Assert.Equal(40, result[0].Id);
     }
+
+    [Fact]
+    public void AddSavedRecipe_ExistingRecipe_ReturnsTrue()
+    {
+        var manager = CreateManager();
+        var result = manager.AddSavedRecipe(10);
+
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void AddSavedRecipe_DuplicateRecipe_ReturnsFalse()
+    {
+        var manager = CreateManager();
+        var firstAdd = manager.AddSavedRecipe(10);
+        var secondAdd = manager.AddSavedRecipe(10);
+
+        Assert.False(secondAdd);
+    }
+
+    [Fact]
+    public void AddSavedRecipe_NonExistingRecipe_ReturnsFalse()
+    {
+        var manager = CreateManager();
+        var result = manager.AddSavedRecipe(9999999);
+
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void RemoveSavedRecipe_SavedRecipe_ReturnsTrue()
+    {
+        var manager = CreateManager();
+        manager.AddSavedRecipe(10);
+
+        var result = manager.RemoveSavedRecipe(10);
+
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void RemoveSavedRecipe_NotSavedRecipe_ReturnsFalse()
+    {
+        var manager = CreateManager();
+        manager.AddSavedRecipe(10);
+
+        var firstRemove = manager.RemoveSavedRecipe(10);
+        var secondRemove = manager.RemoveSavedRecipe(10);
+
+        Assert.True(firstRemove);
+        Assert.False(secondRemove);
+    }
+
+    [Fact]
+    public void IsRecipeSaved_SavedRecipe_ReturnsTrue()
+    {
+        var manager = CreateManager();
+        manager.AddSavedRecipe(10);
+
+        var result = manager.IsRecipeSaved(10);
+
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void IsRecipeSaved_NotSavedRecipe_ReturnsFalse()
+    {
+        var manager = CreateManager();
+        var result = manager.IsRecipeSaved(10);
+
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void GetSavedRecipes_NoSavedRecipes_ReturnsEmptyList()
+    {
+        var manager = CreateManager();
+        var result = manager.GetSavedRecipes();
+
+        Assert.Empty(result);
+    }
+
+    [Fact]
+    public void GetSavedRecipes_MultipleSavedRecipes_ReturnsAllIds()
+    {
+        var manager = CreateManager();
+        manager.AddSavedRecipe(10);
+        manager.AddSavedRecipe(20);
+
+        var result = manager.GetSavedRecipes();
+        
+        Assert.Contains(10, result);
+        Assert.Contains(20, result);
+        Assert.Equal(2, result.Count);
+
+    }
 }
