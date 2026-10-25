@@ -543,6 +543,33 @@ public sealed class RecipeManagerTests
         Assert.Contains(10, result);
         Assert.Contains(20, result);
         Assert.Equal(2, result.Count);
+    }
+
+// Integration Testing  
+    [Fact]
+    public void Integration_SearchSaveRemove_WorksCorrectly()
+    {
+        var manager = CreateManager();
+
+        var searchResults = manager.SearchByTitle("Recipe A");
+        Assert.Single(searchResults);
+
+        var recipeId = searchResults[0].Id;
+        var addSucceeded = manager.AddSavedRecipe(recipeId);
+        var wasSaved = manager.IsRecipeSaved(recipeId);
+        var removeSucceeded = manager.RemoveSavedRecipe(recipeId);
+
+        var recipesAfterRemoval = manager.SearchByTitle("Recipe A");
+
+        var isSavedAfterRemoval = manager.IsRecipeSaved(recipeId);
+
+        Assert.Equal(10, searchResults[0].Id);
+        Assert.True(addSucceeded);
+        Assert.True(wasSaved);
+        Assert.True(removeSucceeded);
+        Assert.Single(recipesAfterRemoval);
+        Assert.Equal(recipeId, recipesAfterRemoval[0].Id);
+        Assert.False(isSavedAfterRemoval);
 
     }
 }
