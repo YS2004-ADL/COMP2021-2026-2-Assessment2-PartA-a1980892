@@ -25,7 +25,7 @@ Starter repository for Parts A and B. Implement `RecipeManager` in Core; the App
 
 ## Build and run
 
-Open `StudentPackage/RecipeManagement.sln`:
+Open `RecipeManagement.sln` from the repository root directory.
 
 ```bash
 dotnet build
@@ -33,8 +33,14 @@ dotnet test
 dotnet run --project RecipeManagement.Application -- data/recipes.json
 ```
 
-Until you implement `RecipeManager`, menu options print a **Not implemented** message.
 
 ## AI acknowledgement
 
-I used ChatGPT to help me understand the assignment requirements and review C# concepts, including Dictionary, List, LinkedList, Stack and Queue, as well as their related methods. I also used ChatGPT to help me understand xUnit testing, troubleshoot errors, review debugging approaches, understand Git/GitHub workflow, and discuss how the required collections interact within the RecipeManager. I reviewed the explanations and suggestions, then developed and tested the implementation myself using my understanding of the course material. I verified my work using automated tests and manual console testing. I did not copy or adapt AI-generated code or other material into my submission. I developed the submitted solution myself based on my understanding of the course material.
+
+AI acknowledgement:I used ChatGPT to help me understand the assignment requirements and review C# programming concepts.
+
+For Part A, I reviewed Dictionary, List, LinkedList, Stack and Queue, their related methods, and how these collections interact within RecipeManager. I also used ChatGPT to help me understand xUnit testing, troubleshoot errors, review debugging approaches, and understand the Git and GitHub workflow.
+
+For Part B, I used ChatGPT to help me understand how to implement case-insensitive title and ingredient searches using LINQ methods such as Where() and Any(). I also reviewed the LINQ methods covered in the course so that I could correctly implement the required functionality. In addition, I reviewed time complexity concepts to support my independent selection of data structures and my answers to the related complexity questions.
+
+I did not copy or adapt AI-generated code or other material into my submission. I developed the submitted solution myself based on my understanding of the course material.
